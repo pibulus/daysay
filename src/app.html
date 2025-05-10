@@ -31,11 +31,11 @@
 		<meta name="format-detection" content="telephone=no" />
 		<meta
 			name="description"
-			content="Create stacked list cards with your voice. Ziplist makes it easy to organize your thoughts as you speak."
+			content="Speak your day and create simple journal entries. DaySay makes journaling as easy as talking about your day."
 		/>
 		<meta
 			name="keywords"
-			content="voice lists, audio lists, voice notes, list cards, stacked lists, voice organization"
+			content="voice journal, audio diary, voice notes, journal entries, daily logs, voice journaling"
 		/>
 		<meta name="author" content="Dennis & Pablo" />
 
@@ -46,7 +46,7 @@
 		<meta name="theme-color" content="#FFF6E6" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-		<meta name="apple-mobile-web-app-title" content="Ziplist" />
+		<meta name="apple-mobile-web-app-title" content="DaySay" />
 
 		<!-- iOS specific splash screens (main sizes) -->
 		<link
@@ -97,21 +97,21 @@
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://ziplist.app/" />
-		<meta property="og:title" content="Ziplist - Voice to Lists" />
+		<meta property="og:url" content="https://daysay.app/" />
+		<meta property="og:title" content="DaySay - Voice Journaling" />
 		<meta
 			property="og:description"
-			content="Create organized lists by speaking. Ziplist turns your voice into stacked list cards instantly."
+			content="Speak your day and create simple journal entries. DaySay makes journaling as easy as talking."
 		/>
 		<meta property="og:image" content="%sveltekit.assets%/og-image.png" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://ziplist.app/" />
-		<meta property="twitter:title" content="Ziplist - Voice to Lists" />
+		<meta property="twitter:url" content="https://daysay.app/" />
+		<meta property="twitter:title" content="DaySay - Voice Journaling" />
 		<meta
 			property="twitter:description"
-			content="Create organized lists by speaking. Ziplist turns your voice into stacked list cards instantly."
+			content="Speak your day and create simple journal entries. DaySay makes journaling as easy as talking."
 		/>
 		<meta property="twitter:image" content="%sveltekit.assets%/og-image.png" />
 
@@ -143,7 +143,7 @@
 			}
 			
 			// Apply theme using storage helpers
-			const THEME_KEY = 'ziplist-vibe';
+			const THEME_KEY = 'DaySay-vibe';
 			const DEFAULT_THEME = 'peach';
 			
 			const savedTheme = getStorageItem(THEME_KEY, DEFAULT_THEME);
@@ -166,8 +166,8 @@
 			{
 				"@context": "https://schema.org",
 				"@type": "WebApplication",
-				"name": "Ziplist",
-				"url": "https://ziplist.app",
+				"name": "DaySay",
+				"url": "https://daysay.app",
 				"applicationCategory": "UtilitiesApplication",
 				"operatingSystem": "Web",
 				"offers": {
@@ -175,12 +175,12 @@
 					"price": "0",
 					"priceCurrency": "USD"
 				},
-				"description": "Create organized lists by speaking. Ziplist turns your voice into stacked list cards instantly.",
+				"description": "Speak your day and create simple journal entries. DaySay makes journaling as easy as talking about your day.",
 				"potentialAction": {
 					"@type": "ConsumeAction",
 					"target": {
 						"@type": "EntryPoint",
-						"urlTemplate": "https://ziplist.app",
+						"urlTemplate": "https://daysay.app",
 						"actionPlatform": [
 							"http://schema.org/DesktopWebPlatform",
 							"http://schema.org/MobileWebPlatform"
@@ -189,11 +189,11 @@
 					"expectsAcceptanceOf": {
 						"@type": "Offer",
 						"category": "free",
-						"description": "Free voice-to-list creation service"
+						"description": "Free voice journaling service"
 					}
 				},
 				"browserRequirements": "Requires a modern web browser with WebSpeech API or microphone access. Works best in Chrome, Edge, Safari, and Firefox.",
-				"keywords": "voice lists, audio lists, voice notes, list cards, stacked lists, voice organization",
+				"keywords": "voice journal, audio diary, voice notes, journal entries, daily logs, voice journaling",
 				"applicationSubCategory": "Productivity Tools"
 			}
 		</script>

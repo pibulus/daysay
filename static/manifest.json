@@ -1,7 +1,7 @@
 {
-  "name": "Ziplist",
-  "short_name": "Ziplist",
-  "description": "Create stacked list cards with your voice. Quick, simple, spooky.",
+  "name": "DaySay",
+  "short_name": "DaySay",
+  "description": "Speak your day and create simple journal entries. DaySay makes journaling as easy as talking.",
   "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#FFF6E6",

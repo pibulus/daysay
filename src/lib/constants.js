@@ -1,5 +1,5 @@
 /**
- * Ziplist Constants
+ * DaySay Constants
  *
  * Central configuration for app-wide constants to maintain DRY principles
  * and make future adjustments easier.
@@ -18,23 +18,23 @@ export const DEFAULT_THEME = THEMES.PEACH;
 // Local Storage Keys
 export const STORAGE_KEYS = {
 	// Application Settings
-	THEME: 'ziplist-vibe',
-	FIRST_VISIT: 'hasSeenZiplistIntro',
-	AUTO_RECORD: 'ziplist-autoRecord',
-	PROMPT_STYLE: 'ziplist-prompt-style',
-	DEBUG_MODE: 'ziplist-debug-mode',
+	THEME: 'DaySay-vibe',
+	FIRST_VISIT: 'hasSeenDaySayIntro',
+	AUTO_RECORD: 'DaySay-autoRecord',
+	PROMPT_STYLE: 'DaySay-prompt-style',
+	DEBUG_MODE: 'DaySay-debug-mode',
 
 	// PWA Related
-	TRANSCRIPTION_COUNT: 'ziplist-transcription-count',
-	PWA_PROMPT_SHOWN: 'ziplist-pwa-prompt-shown',
-	PWA_PROMPT_COUNT: 'ziplist-pwa-prompt-count',
-	PWA_LAST_PROMPT_DATE: 'ziplist-pwa-last-prompt-date',
-	PWA_INSTALLED: 'ziplist-pwa-installed',
-	
-	// Lists Related
-	LISTS: 'ziplist-lists',
-	ACTIVE_LIST_ID: 'ziplist-active-list-id',
-	LISTS_VERSION: 'ziplist-lists-version'
+	TRANSCRIPTION_COUNT: 'DaySay-transcription-count',
+	PWA_PROMPT_SHOWN: 'DaySay-pwa-prompt-shown',
+	PWA_PROMPT_COUNT: 'DaySay-pwa-prompt-count',
+	PWA_LAST_PROMPT_DATE: 'DaySay-pwa-last-prompt-date',
+	PWA_INSTALLED: 'DaySay-pwa-installed',
+
+	// Journal Entries Related
+	ENTRIES: 'DaySay-entries',
+	ACTIVE_ENTRY_ID: 'DaySay-active-entry-id',
+	ENTRIES_VERSION: 'DaySay-entries-version'
 };
 
 // Prompt Styles
@@ -51,9 +51,9 @@ export const DEFAULT_PROMPT_STYLE = PROMPT_STYLES.STANDARD;
 
 // App Configuration
 export const APP_CONFIG = {
-	NAME: 'Ziplist',
+	NAME: 'DaySay',
 	VERSION: '0.1.0',
-	DESCRIPTION: 'Create stacked list cards with your voice',
+	DESCRIPTION: 'Speak your day and create simple journal entries',
 	AUTHORS: 'Dennis & Pablo'
 };
 
@@ -171,8 +171,8 @@ export const COPY_MESSAGES = [
 
 // Attribution Tags
 export const ATTRIBUTION = {
-	SIMPLE_TAG: '𝘊𝘳𝘦𝘢𝘵𝘦𝘥 𝘸𝘪𝘵𝘩 𝘡𝘪𝘱𝘭𝘪𝘴𝘵 👻',
-	SHARE_POSTFIX: '\n\n𝘊𝘳𝘦𝘢𝘵𝘦𝘥 𝘸𝘪𝘵𝘩 𝘡𝘪𝘱𝘭𝘪𝘴𝘵 👻',
+	SIMPLE_TAG: '𝘑𝘰𝘶𝘳𝘯𝘢𝘭𝘦𝘥 𝘸𝘪𝘵𝘩 𝘋𝘢𝘺𝘚𝘢𝘺 👻',
+	SHARE_POSTFIX: '\n\n𝘑𝘰𝘶𝘳𝘯𝘢𝘭𝘦𝘥 𝘸𝘪𝘵𝘩 𝘋𝘢𝘺𝘚𝘢𝘺 👻',
 	FOCUS_RECOVERY_MESSAGE: 'Click in window first, then copy again! 🔍'
 };
 

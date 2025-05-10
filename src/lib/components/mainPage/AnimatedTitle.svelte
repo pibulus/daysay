@@ -6,8 +6,8 @@
   const dispatch = createEventDispatcher();
   
   // Component props
-  export let title = 'Ziplist';
-  export let subtitle = "Create stacked list cards with your voice. Quick, simple, spooky.";
+  export let title = 'DaySay';
+  export let subtitle = "Speak your day and create simple journal entries. Quick, simple, spooky.";
   
   // AppSuffix configuration
   export let showAppSuffix = true;
@@ -34,12 +34,12 @@
     aria-label={title}
   >
     <!-- Use aria-hidden for spans if H1 has aria-label -->
-    <span class="ziplist-main-word">
-      <span class="stagger-letter mr-[-0.06em]" aria-hidden="true">Z</span><span class="stagger-letter ml-[-0.04em]" aria-hidden="true">i</span><span
-        class="stagger-letter" aria-hidden="true">p</span
-      ><span class="stagger-letter" aria-hidden="true">l</span><span class="stagger-letter mr-[-0.04em]" aria-hidden="true">i</span><span
-        class="stagger-letter ml-[-0.03em]" aria-hidden="true">s</span
-      ><span class="stagger-letter" aria-hidden="true">t</span>
+    <span class="daysay-main-word">
+      <span class="stagger-letter mr-[-0.06em]" aria-hidden="true">D</span><span class="stagger-letter ml-[-0.04em]" aria-hidden="true">a</span><span
+        class="stagger-letter" aria-hidden="true">y</span
+      ><span class="stagger-letter" aria-hidden="true">s</span><span class="stagger-letter mr-[-0.04em]" aria-hidden="true">a</span><span
+        class="stagger-letter ml-[-0.03em]" aria-hidden="true">y</span
+      >
     </span>
     
     {#if showAppSuffix}
@@ -142,8 +142,8 @@
     position: relative;
   }
   
-  /* Container to visually center the main "Ziplist" word */
-  .ziplist-main-word {
+  /* Container to visually center the main "Daysay" word */
+  .daysay-main-word {
     display: inline-block;
     position: relative;
   }
