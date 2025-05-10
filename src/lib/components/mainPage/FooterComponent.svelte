@@ -20,7 +20,7 @@
   <button
     class="btn btn-sm btn-ghost text-gray-600 hover:text-pink-500 shadow-none hover:bg-pink-50/50 transition-all text-sm sm:text-base py-2 px-2 sm:px-3 h-auto min-h-0"
     on:click={showAbout}
-    aria-label="About Ziplist"
+    aria-label="About DaySay"
   >
     About
   </button>

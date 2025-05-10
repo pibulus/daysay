@@ -12,15 +12,15 @@
     <div class="animate-fadeUp space-y-4">
       <div class="flex items-center gap-3 mb-1">
         <div class="w-9 h-9 rounded-full flex items-center justify-center shadow-sm border border-purple-200/60 overflow-hidden">
-          <img src="/icons/icon-96x96.png" alt="Ziplist Chrome Extension" class="w-full h-full object-cover" />
+          <img src="/icons/icon-96x96.png" alt="DaySay Chrome Extension" class="w-full h-full object-cover" />
         </div>
         <h3 id="extension_modal_title" class="font-black text-xl text-gray-800 tracking-tight">Chrome Extension</h3>
       </div>
 
       <div class="bg-gradient-to-r from-pink-50/90 to-amber-50/90 p-4 rounded-lg border border-pink-200/60 shadow-sm">
         <p class="text-sm leading-relaxed text-gray-700">
-          Use Ziplist everywhere on the web! Our Chrome extension lets you create lists directly in any text field.
-          Perfect for emails, social media, messaging apps, or anywhere else you need to organize your thoughts.
+          Use DaySay everywhere on the web! Our Chrome extension lets you create journal entries directly in any text field.
+          Perfect for emails, social media, messaging apps, or anywhere else you want to record your thoughts and memories.
         </p>
       </div>
 
@@ -49,7 +49,7 @@
       </div>
 
       <div class="pt-1 flex justify-end">
-        <span class="text-xs text-gray-600 italic font-medium">Voice-to-lists anywhere, anytime 🎙️</span>
+        <span class="text-xs text-gray-600 italic font-medium">Voice journal anywhere, anytime 🎙️</span>
       </div>
     </div>
   </div>
