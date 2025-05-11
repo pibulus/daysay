@@ -3,6 +3,8 @@ import { eventBus as eventBusInstance } from './infrastructure/index';
 import { hapticService as hapticServiceInstance } from './infrastructure/index';
 import { audioService as audioServiceInstance } from './audio/audioService';
 import { transcriptionService as transcriptionServiceInstance } from './transcription/transcriptionService';
+import { journalTranscriptionService as journalTranscriptionServiceInstance } from './transcription/journalTranscriptionService';
+import { journalService as journalServiceInstance } from './journal/journalService';
 import { themeService as themeServiceInstance } from './theme/themeService';
 import { modalService as modalServiceInstance } from './modals/modalService';
 import { firstVisitService as firstVisitServiceInstance } from './first-visit/firstVisitService';
@@ -29,6 +31,11 @@ export { audioService, AudioEvents } from './audio/audioService';
 
 // Transcription services
 export { transcriptionService, TranscriptionEvents } from './transcription/transcriptionService';
+export { journalTranscriptionService, JournalTranscriptionEvents } from './transcription/journalTranscriptionService';
+
+// Journal services
+export { journalService } from './journal/journalService';
+export { journalParser } from './journal/journalParser';
 
 // Store exports
 export { 
@@ -74,6 +81,8 @@ export function initializeServices(options = {}) {
     eventBus: eventBusInstance,
     audioService: audioServiceInstance,
     transcriptionService: transcriptionServiceInstance,
+    journalTranscriptionService: journalTranscriptionServiceInstance,
+    journalService: journalServiceInstance,
     hapticService: hapticServiceInstance,
     themeService: themeServiceInstance,
     modalService: modalServiceInstance,

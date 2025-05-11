@@ -71,50 +71,89 @@ export function extractJSON(text) {
 }
 
 /**
- * Parse items from a model response, with fallbacks for different formats
+ * Parse journal entry from a model response, with fallbacks for different formats
+ * @param {string} responseText - Raw response text from the model
+ * @returns {object} Parsed journal entry data
+ */
+export function parseJournalEntryFromResponse(responseText) {
+  if (!responseText) return { text: '', commands: [], mood: null, tags: [] };
+
+  // Try to extract journal data from JSON structure first
+  const jsonData = extractJSON(responseText);
+
+  if (jsonData) {
+    return {
+      text: jsonData.text || '',
+      commands: jsonData.commands || [],
+      mood: jsonData.mood || null,
+      tags: jsonData.tags || []
+    };
+  }
+
+  // Fallback: If JSON parsing fails, treat the entire text as journal content
+  return {
+    text: cleanResponseText(responseText),
+    commands: [],
+    mood: null,
+    tags: []
+  };
+}
+
+/**
+ * Legacy function to parse items from a model response (kept for backward compatibility)
  * @param {string} responseText - Raw response text from the model
  * @returns {string[]} Array of extracted items
  */
 export function parseItemsFromResponse(responseText) {
   if (!responseText) return [];
-  
+
   // Try to extract items from JSON structure first
   const jsonData = extractJSON(responseText);
-  
+
   if (jsonData && jsonData.items && Array.isArray(jsonData.items)) {
     return jsonData.items.filter(item => item && typeof item === 'string');
   }
-  
+
+  // For journal entries, convert them to a single item
+  if (jsonData && jsonData.text) {
+    return [jsonData.text];
+  }
+
   // Fallback: If JSON parsing fails, try to extract items line by line
   const lines = responseText.split(/\n+/)
     .map(line => {
       // Clean up each line
       let cleaned = line.trim();
-      
+
       // Remove common list markers
       cleaned = cleaned.replace(/^[-•*+]|\d+[.)]|\[\s*\]|\[\s*x\s*\]/, '').trim();
-      
+
       // Remove quotes that might be from a json array
       cleaned = cleaned.replace(/^["']|["']$/g, '').trim();
-      
+
       return cleaned;
     })
     .filter(line => line.length > 0);  // Remove empty lines
-  
+
   return lines;
 }
 
 /**
  * Main parser function that handles model responses and extracts useful content
  * @param {string} responseText - Raw response from the model
- * @returns {object} Structured data with parsed items and metadata
+ * @returns {object} Structured data with parsed content and metadata
  */
 export function parseModelResponse(responseText) {
-  const items = parseItemsFromResponse(responseText);
-  
+  // First, try to parse as a journal entry
+  const journalEntry = parseJournalEntryFromResponse(responseText);
+
+  // For backward compatibility with list items
+  const items = journalEntry.text ? [journalEntry.text] : parseItemsFromResponse(responseText);
+
   return {
-    success: items.length > 0,
+    success: journalEntry.text.length > 0 || items.length > 0,
     items,
+    journalEntry,
     raw: responseText,
     timestamp: new Date().toISOString()
   };

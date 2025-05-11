@@ -8,7 +8,7 @@ import { get } from 'svelte/store'; // get should be imported from svelte/store
 	import { geminiService } from '$lib/services/geminiService';
 	import { themeService } from '$lib/services/theme';
 	import { modalService } from '$lib/services/modals';
-	import { transcriptionService } from '$lib/services/transcription/transcriptionService.js'; // Added transcriptionService
+	// Replaced with journalTranscriptionService
 	import { firstVisitService, isFirstVisit } from '$lib/services/first-visit';
 	import { pwaService, deferredInstallPrompt, showPwaInstallPrompt } from '$lib/services/pwa';
 	import { 
@@ -23,9 +23,10 @@ import { get } from 'svelte/store'; // get should be imported from svelte/store
 	  userPreferences 
 	} from '$lib/services/infrastructure/stores.js';
 	import { AudioStates } from '$lib/services/audio/audioStates.js'; // Import AudioStates directly
+import { journalService, journalTranscriptionService } from '$lib/services';
 	import { ghostStateStore } from '$lib/components/ghost/stores/ghostStateStore.js'; // Ensure ghostStateStore is imported
 	import { PageLayout } from '$lib/components/layout';
-	import ListCarousel from '../list/ListCarousel.svelte';
+	import { JournalTimeline } from '../journal';
 	import RecordButtonWithTimer from './audio-transcript/RecordButtonWithTimer.svelte'; // Import the button
 	import { fade } from 'svelte/transition';
 	import { StorageUtils } from '$lib/services/infrastructure/storageUtils';
@@ -217,7 +218,7 @@ import { get } from 'svelte/store'; // get should be imported from svelte/store
 					}
 
 					try {
-						await transcriptionService.transcribeAudio(audioBlob);
+						await journalTranscriptionService.transcribeAudio(audioBlob);
 						// transcriptionService handles success/error and updates transcriptionState
 						// which in turn might trigger ghost reactions or other UI updates.
 						// On successful transcription, it eventually sets transcriptionState.inProgress = false.
@@ -372,9 +373,9 @@ import { get } from 'svelte/store'; // get should be imported from svelte/store
 	<ContentContainer
 		bind:this={contentContainer}
 	/>
-	<ListCarousel />
+	<JournalTimeline />
 
-	<!-- Add the RecordButtonWithTimer below the ListCarousel -->
+	<!-- Add the RecordButtonWithTimer below the JournalTimeline -->
 	<div class="flex justify-center my-4">
 		<RecordButtonWithTimer
 			recording={$isRecording}

@@ -14,7 +14,8 @@
 	import {
 		initializeServices,
 		audioService,
-		transcriptionService,
+		journalTranscriptionService,
+		journalService,
 		pwaService,
 		// Stores
 		isRecording,
@@ -162,8 +163,8 @@
 			// Log AudioBlob size
 			console.log('[DEBUG] AudioBlob size:', audioBlob ? audioBlob.size : 'null');
 
-			// Add confetti celebration for successful transcription (randomly 1/7 times)
-			if (audioBlob && audioBlob.size > 10000 && Math.floor(Math.random() * 7) === 0) {
+			// Add confetti celebration for successful transcription (randomly 1/5 times)
+			if (audioBlob && audioBlob.size > 10000 && Math.floor(Math.random() * 5) === 0) {
 				setTimeout(() => {
 					showConfettiCelebration();
 				}, 2000);
@@ -171,7 +172,7 @@
 
 			// Start transcription process if we have audio data
 			if (audioBlob && audioBlob.size > 0) {
-				await transcriptionService.transcribeAudio(audioBlob);
+				await journalTranscriptionService.transcribeAudio(audioBlob);
 
 				// Schedule scroll to bottom when transcript is complete
 				setTimeout(() => {
@@ -411,8 +412,8 @@
 	let currentCtaIndex = 0;
 	let currentCta = CTA_PHRASES[currentCtaIndex];
 
-	// Button label computation - fixed to show CTA phrases
-	$: buttonLabel = $isRecording ? 'Stop Recording' : $transcriptionText ? currentCta : currentCta;
+	// Button label computation - modified for journaling context
+	$: buttonLabel = $isRecording ? 'Stop Recording' : $transcriptionText ? 'Save Journal Entry' : 'Record Journal Entry';
 
 	// Handler for transcript component events
 	function handleTranscriptEvent(event) {
@@ -421,10 +422,10 @@
 		if (type === 'copy') {
 			// Use the transcript text from the detail property instead of calling a method on event.target
 			const transcriptText = detail?.text || $transcriptionText;
-			transcriptionService.copyToClipboard(transcriptText);
+			journalTranscriptionService.copyToClipboard(transcriptText);
 		} else if (type === 'share') {
 			const transcriptText = detail?.text || $transcriptionText;
-			transcriptionService.shareTranscript(transcriptText);
+			journalTranscriptionService.shareTranscript(transcriptText);
 		} else if (type === 'focus') {
 			uiActions.setScreenReaderMessage(detail.message);
 		}
@@ -453,7 +454,7 @@
 			console.log('[DEBUG] Inside handleTranscriptCompletion: textToProcess is TRUTHY.');
 			// Add a small delay to ensure the UI has updated
 			setTimeout(() => {
-				transcriptionService.copyToClipboard(textToProcess); // <-- Use parameter
+				journalTranscriptionService.copyToClipboard(textToProcess); // <-- Use parameter
 				console.log("Auto-copying transcript to clipboard");
 			}, 300);
 		} else {
@@ -550,7 +551,7 @@
 	<div class="mobile-centered-container flex w-full flex-col items-center justify-center">
 		<!-- Recording button/progress bar section - sticky positioned for stability -->
 		<div
-			class="button-section relative sticky top-0 z-20 flex w-full justify-center bg-transparent pb-6 pt-2 sm:pb-7 md:pb-8"
+			class="button-section sticky top-0 z-20 flex w-full justify-center bg-transparent pb-6 pt-2 sm:pb-7 md:pb-8"
 		>
 			<div class="button-container mx-auto flex w-full max-w-[500px] justify-center">
 				<RecordButtonWithTimer

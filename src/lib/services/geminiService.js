@@ -19,7 +19,7 @@ export const geminiService = {
   async transcribeAudio(audioBlob) {
     try {
       console.log('🎤 Transcribing audio with Gemini');
-      
+
       // Ensure model is preloaded if possible
       const { initialized } = geminiApiService.getModelStatus();
       if (!initialized) {
@@ -30,32 +30,49 @@ export const geminiService = {
           console.log('⚠️ Preloading failed, continuing with transcription:', err);
         }
       }
-      
+
       // Get the appropriate prompt based on current style
       const prompt = promptManager.getPrompt('transcribeAudio');
-      
+
       // Convert audio to format Gemini can use
       const audioPart = await geminiApiService.blobToGenerativePart(audioBlob);
 
       // Generate content with both prompt and audio data
       const response = await geminiApiService.generateContent([prompt, audioPart]);
       console.log('✅ Audio transcription complete');
-      
+
       // Get the raw response text
       const responseText = response.text();
       console.log('Raw response from Gemini:', responseText);
-      
+
       // Use our robust parser to handle various response formats
       const parsedResponse = parseModelResponse(responseText);
       console.log('Parsed response:', parsedResponse);
-      
-      if (parsedResponse.success && parsedResponse.items.length > 0) {
-        // Return the items as a formatted string
-        return parsedResponse.items.join('\n');
+
+      // Check if we have a valid journal entry
+      if (parsedResponse.journalEntry && parsedResponse.journalEntry.text) {
+        // Return the complete journal entry object for processing
+        return parsedResponse.journalEntry;
+      }
+      // Legacy fallback behavior for backward compatibility
+      else if (parsedResponse.success && parsedResponse.items.length > 0) {
+        // Transform list items into a simple journal entry format
+        const text = parsedResponse.items.join('\n');
+        return {
+          text,
+          commands: [],
+          mood: null,
+          tags: []
+        };
       } else {
         // Fallback to raw text if parsing fails completely
-        console.warn('Unable to extract structured items from response');
-        return responseText;
+        console.warn('Unable to extract structured content from response');
+        return {
+          text: responseText,
+          commands: [],
+          mood: null,
+          tags: []
+        };
       }
     } catch (error) {
       console.error('❌ Error transcribing audio:', error);

@@ -1,35 +1,48 @@
-// Collection of different prompt templates organized by style
+// Collection of different prompt templates organized by style for journal entries
 
 export const promptTemplates = {
-  // Standard prompt style (current implementation)
+  // Standard prompt style (default journal implementation)
   standard: {
     transcribeAudio: {
-      text: 
-`Process this audio file into a structured JSON format with a list of tasks or items.
+      text:
+`Process this audio file into a structured JSON format for a journal entry.
 The response MUST be valid JSON with ONLY this structure:
 
 {
-  "items": [
-    "First item",
-    "Second item",
-    "Another distinct item"
+  "text": "The main content of the journal entry...",
+  "mood": "happy|sad|reflective|anxious|neutral|etc",
+  "tags": ["tag1", "tag2", "tag3"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["optional parameter"]
+    }
   ]
 }
 
-Requirements:
-1. Extract distinct and separate items from the audio
-2. Remove filler words, duplicates, and profanity
-3. Format each item consistently with proper capitalization
-4. If the audio mentions "I need to" or "I want to" phrases, convert these to clean action items
-5. Return ONLY the raw JSON without any explanation, markdown formatting, or code blocks
-6. The response must be valid, parseable JSON
-7. Do not add any text outside the JSON structure
+Processing Requirements:
+1. Extract the main journal content while preserving natural language flow
+2. Identify the overall mood/sentiment expressed in the entry
+3. Extract any meaningful tags mentioned or implied in the content
+4. Recognize journal commands like "new entry", "continue", "yesterday's entry", etc.
+5. Format the text naturally with proper capitalization and paragraphs
+6. Return ONLY the raw JSON without any explanation, markdown formatting, or code blocks
+7. The response must be valid, parseable JSON
+8. Do not add any text outside the JSON structure
+
+Journal Commands to Identify:
+- "new entry", "start fresh" → NEW_ENTRY
+- "today's entry", "for today" → TODAY_ENTRY
+- "yesterday's entry", "for yesterday" → YESTERDAY_ENTRY
+- "continue", "add to this" → CONTINUE_ENTRY
+- "I feel [emotion]", "my mood is [emotion]" → SET_MOOD with [emotion] parameter
+- "tag this as [tag]", "add tag [tag]" → ADD_TAG with [tag] parameter
 
 Example valid response:
-{"items":["Reply to emails","Buy groceries","Schedule dentist appointment"]}`,
+{"text":"Today I went for a long walk in the park. The weather was perfect and I spotted several birds I hadn't seen before.","mood":"happy","tags":["outdoors","nature","birds"],"commands":[]}`,
     },
     generateAnimation: {
-      text: 
+      text:
 `Generate a CSS animation for a ghost SVG based on this description: '{{description}}'.
 Return a JSON object with the following structure:
 
@@ -68,18 +81,24 @@ Critical requirements:
   // Surly pirate prompt style
   surlyPirate: {
     transcribeAudio: {
-      text: 
-`Process this audio into a structured JSON list of pirate-style items.
+      text:
+`Process this audio into a structured JSON for a pirate-style journal entry.
 Format response as valid JSON with the following structure:
 
 {
-  "items": [
-    "First pirate item",
-    "Second pirate item"
+  "text": "Arr, 'twas a fine day on the seven seas...",
+  "mood": "happy|sad|reflective|anxious|neutral|etc",
+  "tags": ["tag1", "tag2", "tag3"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["optional parameter"]
+    }
   ]
 }
 
 Use pirate slang, expressions, and attitude (arr, matey, ye, scallywag, etc.).
+Present the journal entry as a pirate's ship log or tale of adventure.
 Return ONLY raw JSON, no additional text or formatting.`,
     },
   },
@@ -87,14 +106,19 @@ Return ONLY raw JSON, no additional text or formatting.`,
   // L33T Sp34k prompt style
   leetSpeak: {
     transcribeAudio: {
-      text: 
-`Pr0c355 th15 4ud10 1nt0 4 5tructur3d J50N l15t 0f l33t 5p34k 1t3m5.
+      text:
+`Pr0c355 th15 4ud10 1nt0 4 5tructur3d J50N f0r 4 l33t 5p34k j0urn4l 3ntry.
 F0rm4t r35p0n53 45 v4l1d J50N w1th th15 5tructur3:
 
 {
-  "items": [
-    "F1r5t l33t 1t3m",
-    "53c0nd l33t 1t3m"
+  "text": "70d4y 1 h4ck3d my w4y 1nt0 th3...",
+  "mood": "h4ppy|54d|r3fl3ct1v3|4nx10u5|n3utr4l|3tc",
+  "tags": ["t4g1", "t4g2", "t4g3"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["0pt10n4l p4r4m3t3r"]
+    }
   ]
 }
 
@@ -106,58 +130,73 @@ R3turn 0NLY r4w J50N, n0 4dd1t10n4l t3xt.`,
   // Sparkle Pop prompt style
   sparklePop: {
     transcribeAudio: {
-      text: 
-`OMG!!! Process this audio into a structured JSON list of SUPER bubbly items!!!
+      text:
+`OMG!!! Process this audio into a structured JSON for a SUPER bubbly journal entry!!!
 Format response as valid JSON with this structure:
 
 {
-  "items": [
-    "First AMAZING item ✨💖",
-    "Second TOTALLY CUTE item 🌈✨"
+  "text": "OMG today was LITERALLY the BEST day ever!!! ✨💖...",
+  "mood": "happy|sad|reflective|anxious|neutral|etc",
+  "tags": ["tag1", "tag2", "tag3"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["optional parameter"]
+    }
   ]
 }
 
-Make each item EXTRA bubbly with emojis, excitement, and teen slang!!!
+Make the journal entry EXTRA bubbly with emojis, excitement, and teen slang!!!
 Use words like 'literally,' 'totally,' 'sooo,' 'vibes,' and 'obsessed'!!!
 Return ONLY raw JSON, no additional text or formatting!!!`,
     },
   },
 
-  // Code Whisperer (formerly Prompt Engineer)
+  // Code Whisperer style
   codeWhisperer: {
     transcribeAudio: {
-      text: 
-`Process this audio into a structured JSON list of technical, precise items.
+      text:
+`Process this audio into a structured JSON for a technical, precise journal entry.
 Format response as valid JSON with the following structure:
 
 {
-  "items": [
-    "First technical item",
-    "Second technical item" 
+  "text": "Implemented new algorithm for processing data structures...",
+  "mood": "productive|frustrated|curious|focused|neutral|etc",
+  "tags": ["coding", "algorithm", "debugging", "etc"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["optional parameter"]
+    }
   ]
 }
 
-Use clear, structured, technical language suitable for a coding prompt.
-Remove redundancies, organize logically, use precise terminology.
+Use clear, structured, technical language suitable for a programmer's journal.
+Organize logically, use precise terminology, maintain analytical tone.
 Return ONLY raw JSON, no additional text or formatting.`,
     },
   },
 
-  // Quill & Ink (formerly Victorian Author)
+  // Quill & Ink style
   quillAndInk: {
     transcribeAudio: {
-      text: 
-`Process this audio into a structured JSON list of eloquent Victorian-style items.
+      text:
+`Process this audio into a structured JSON for an eloquent Victorian-style journal entry.
 Format response as valid JSON with the following structure:
 
 {
-  "items": [
-    "First eloquent Victorian item",
-    "Second ornate Victorian item"
+  "text": "Upon the morrow of a most delightful spring day, I found myself wandering...",
+  "mood": "joyful|melancholic|contemplative|anxious|serene|etc",
+  "tags": ["nature", "philosophy", "society", "etc"],
+  "commands": [
+    {
+      "command": "NEW_ENTRY|TODAY_ENTRY|YESTERDAY_ENTRY|CONTINUE_ENTRY|SET_MOOD|ADD_TAG",
+      "params": ["optional parameter"]
+    }
   ]
 }
 
-Employ the eloquence and stylistic flourishes of a 19th century Victorian novelist.
+Employ the eloquence and stylistic flourishes of a 19th century Victorian personal diary.
 Use elaborate sentences, period-appropriate vocabulary, and literary devices.
 Return ONLY raw JSON, no additional text or formatting.`,
     },
